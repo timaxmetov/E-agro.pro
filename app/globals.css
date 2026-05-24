@@ -39,6 +39,70 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.35s ease;
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 60px rgba(47, 107, 47, 0.18);
+  border-color: rgba(85, 185, 71, 0.45);
+}
+
+.marquee-track {
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbar for the auto + manual scroll carousel */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.scroll-momentum {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.corridor-path {
+  stroke-dasharray: 8 10;
+  animation: dash 18s linear infinite;
+}
+
+.node-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(85, 185, 71, 0.55);
+  animation: pulseRing 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.scroll-progress {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #55b947, #2f6b2f);
+  z-index: 60;
+  transform-origin: 0 50%;
+  width: 100%;
+}
+
+section[id] {
+  scroll-margin-top: 80px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -47,5 +111,9 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* Keep marquee always animating — brand-presence carousel, not user motion */
+  .marquee-track {
+    animation: marquee 38s linear infinite !important;
   }
 }
